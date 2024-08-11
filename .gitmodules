@@ -1,3 +1,6 @@
 [submodule "XPowersLib"]
 	path = XPowersLib
 	url = https://github.com/lewisxhe/XPowersLib.git
+[submodule "RadioLib"]
+	path = RadioLib
+	url = https://github.com/jgromes/RadioLib.git
