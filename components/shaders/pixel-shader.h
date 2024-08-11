@@ -1,0 +1,44 @@
+#pragma once
+
+#include "shader.h"
+#include <cstdint>
+
+class PixelShader : public Shader {
+    enum class Encoding : uint8_t {
+        DIRECT_ARGB = 0,
+        DIRECT_RGB,
+        INDEXED_2,
+        INDEXED_4,
+        INDEXED_16
+    };
+
+private:
+    Encoding m_encoding;
+    Color *m_palette;
+    size_t m_dataBufSize;
+    uint8_t *m_dataBuf;
+    size_t m_dataBufRead;
+
+    /** Shader construction failed, we'll render nothing. */
+    bool m_disabled = false;
+
+    size_t bufferSizeFor(PixelShader::Encoding encoding, uint16_t pixelCount);
+
+    size_t paletteCountFor(PixelShader::Encoding encoding);
+
+    uint8_t paletteIndex(uint16_t pixelIndex, uint8_t pixelsPerByte, uint8_t bitsPerPixel, uint8_t mask);
+
+public:
+    PixelShader(Surface* surface, Msg* config);
+
+    ~PixelShader();
+
+    void begin(Msg *pMsg, LEDShaderContext* pCtx) override;
+
+    void apply(uint16_t pixelIndex, uint8_t *colorOut, uint8_t *colorIn) override;
+
+    void end() override;
+
+    uint16_t m_pixelsToShade;
+    uint16_t m_pixelsShaded;
+};
