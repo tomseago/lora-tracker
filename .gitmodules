@@ -1,0 +1,3 @@
+[submodule "XPowersLib"]
+	path = XPowersLib
+	url = https://github.com/lewisxhe/XPowersLib.git
